@@ -40,9 +40,9 @@
       this.investorSelected = false;
       this.currentSelection = null;
       
-      this.fill_color = d3.scale.ordinal()
+      this.fill_color = d3.scale.linear()
         .domain([1, 7])
-        .range(["#F1eeF6", "#BDC9E1","#74A9CF", "#2B8CBE", "#045A8D"]);
+        .range(["#BDC9E1","#74A9CF", "#2B8CBE", "#045A8D"]);
       
       max_amount = d3.max(this.data, function(d) {
         return parseInt(d.amount);
@@ -103,8 +103,8 @@
       this.circles.enter()
       .append("circle")
       .each(function (d) {
-        var stroke_color = d3.rgb(self.fill_color(d.group)).darker(),
-            fill_color = self.fill_color(d.group);
+        var stroke_color = d3.rgb(self.fill_color(d.org.length)).darker(),
+            fill_color = self.fill_color(d.org.length);
         
         d3.select(this).attr({
           r: 0,
@@ -160,11 +160,11 @@
           d3.selectAll(".bubble")
             .attr({ 
               "fill-opacity": 0.2,
-              fill: self.fill_color(d.group)
+              fill: self.fill_color(d.org.length)
             });
           d3.select(this).attr({ 
             "fill-opacity": 0.8,
-            fill: self.fill_color(d.group)
+            fill: self.fill_color(d.org.length)
           });
 
         } else {
@@ -172,7 +172,7 @@
           d3.selectAll(".bubble").each(function(data){
             d3.select(this).attr({ 
               "fill-opacity": 0.8,
-              fill: self.fill_color(data.group)
+              fill: self.fill_color(d.org.length)
             });
           });
           
@@ -313,7 +313,7 @@
     BubbleChart.prototype.hide_details = function(data, i, element) {
       d3.select(element).attr("stroke", (function(_this) {
         return function(d) {
-          return d3.rgb(_this.fill_color(d.group)).darker();
+          return d3.rgb(_this.fill_color(d.org.length)).darker();
         };
       })(this));
       return this.tooltip.hideTooltip();
@@ -350,7 +350,7 @@
                 counter = counter + 1;
                 d3.select(this).attr({
                   "fill-opacity": 1,
-                  fill: self.fill_color(data.group)
+                  fill: self.fill_color(d.org.length)
                 });
                 self.show_details(data, counter, this);
               }
@@ -364,7 +364,7 @@
               if(data.org.indexOf(content) >= 0){
                 d3.select(this).attr({
                   "fill-opacity": 0.2,
-                  fill: self.fill_color(data.group)
+                  fill: self.fill_color(d.org.length)
                 });
 
               }
