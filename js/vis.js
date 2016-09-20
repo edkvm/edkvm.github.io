@@ -19,14 +19,17 @@
       this.width = width;
       this.height = height;
       this.tooltip = CustomTooltip("startup_funding_tooltip", 210);
+      
       this.center = {
         x: this.width / 2 ,
         y: this.height / 2
       };
+      
       this.off_screen = {
         x: this.width + 300,
         y: this.height / 2
       };
+      
       this.layout_gravity = -0.01;
       this.damper = 0.1;
       this.vis = null;
@@ -36,14 +39,12 @@
       this.selected = false;
       this.investorSelected = false;
       this.currentSelection = null;
+      
       this.fill_color = d3.scale.ordinal()
-        .domain(["Angel Round", "Seed Round", "Series A", "Series B", "Series C", "Series D", "Series E", "Series F", "Series G", "Private Equity"])
-        .range(["#72AEE3","#72AEE3", "#9DC6EB", "#C7DFF4", "#FCD800", "#FC9C00", "#FC4300",  "#FC4300", "#FC4300", "#6D992F"]);
-      this.fill_color_grayscale = d3.scale.ordinal()
-        .domain(["Angel Round", "Seed Round", "Series A", "Series B", "Series C", "Series D", "Series E", "Series F", "Series G", "Private Equity"])
-        .range(["#E1E2EF", "#CDCDCD"]);  
+        .domain([1, 7])
+        .range(["#F1eeF6", "#BDC9E1","#74A9CF", "#2B8CBE", "#045A8D"]);
+      
       max_amount = d3.max(this.data, function(d) {
-        
         return parseInt(d.amount);
       });
 
@@ -159,7 +160,7 @@
           d3.selectAll(".bubble")
             .attr({ 
               "fill-opacity": 0.2,
-              fill: self.fill_color_grayscale(d.group)
+              fill: self.fill_color(d.group)
             });
           d3.select(this).attr({ 
             "fill-opacity": 0.8,
@@ -363,7 +364,7 @@
               if(data.org.indexOf(content) >= 0){
                 d3.select(this).attr({
                   "fill-opacity": 0.2,
-                  fill: self.fill_color_grayscale(data.group)
+                  fill: self.fill_color(data.group)
                 });
 
               }
@@ -474,7 +475,7 @@
 
     // Render visualisation
     //var v = d3.csv("data/test.csv", render_vis);
-    var v = d3.json("data/test.json", function(data) {
+    var v = d3.json("data/funding.json", function(data) {
 
       render_vis(data);
       // Render label
