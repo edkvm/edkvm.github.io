@@ -42,7 +42,8 @@
       
       this.fill_color = d3.scale.linear()
         .domain([1, 3, 5, 13])
-        .range(["#BDC9E1","#74A9CF", "#2B8CBE", "#045A8D"]);
+        .range(["#143642", "#0f8b8d", "#a8201a", "#f7941d"])
+        //.range(["#BDC9E1","#74A9CF", "#2B8CBE", "#045A8D"]);
       
       max_amount = d3.max(this.data, function(d) {
         return parseInt(d.amount);
