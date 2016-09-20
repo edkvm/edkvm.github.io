@@ -41,7 +41,7 @@
       this.currentSelection = null;
       
       this.fill_color = d3.scale.linear()
-        .domain([1, 3, 5, 13])
+        .domain([1, 3, 5, 8])
         .range(["#143642", "#558C8C", "#F7941D", "#A8201A"])
         //.range(["#BDC9E1","#74A9CF", "#2B8CBE", "#045A8D"]);
       
