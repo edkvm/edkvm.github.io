@@ -123,12 +123,12 @@
       })
       .on("mouseover", function(d, i) {
         if(!self.selected) {
-          showBubbleDetails(current, d)
+          showBubbleDetails(this, d)
         }  
       })
       .on("mouseout", function(d, i) {
         if(!self.selected) {
-          hideBubbleDetails(current, d)  
+          hideBubbleDetails(this, d)  
         }
       })
       .on("click", function(d, i) {
