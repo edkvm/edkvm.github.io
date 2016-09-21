@@ -40,7 +40,7 @@
       this.investorSelected = false;
       this.currentSelection = null;
       
-      this.fill_color = d3.scale.linear()
+      this.colorRange = d3.scale.linear()
         .domain([1, 3, 5, 8])
         .range(["#143642", "#558C8C", "#F7941D", "#A8201A"])
         //.range(["#BDC9E1","#74A9CF", "#2B8CBE", "#045A8D"]);
@@ -104,16 +104,16 @@
       this.circles.enter()
       .append("circle")
       .each(function (d) {
-        var stroke_color = d3.rgb(self.fill_color(d.org.length)).darker(),
-            fill_color = self.fill_color(d.org.length);
+        var strokeColor = d3.rgb(self.colorRange(d.org.length)).darker(),
+            fillColor = self.colorRange(d.org.length);
         
         d3.select(this).attr({
           r: 0,
-          fill: fill_color,
+          "fill": fillColor,
           "fill-opacity": 0.8,
           "stroke-width": 1,
-          stroke: stroke_color,
-          id: "bubble_" + d.id,
+          "stroke": strokeColor,
+          "id": "bubble_" + d.id,
           "class": "bubble"
 
         });  
@@ -123,27 +123,13 @@
       })
       .on("mouseover", function(d, i) {
         if(!self.selected) {
-          var counter = 0
-          
-          d.org.forEach(function(name){
-            counter = counter + 1;
-            d3.select("text#vc-title-" + counter).text(name);  
-            return true;
-          });
-
-          
-          d3.select(this).attr("fill-opacity", 0.8);
-
-          return self.show_details(d, 1, this);
-        }
+          showBubbleDetails()
+        }  
       })
       .on("mouseout", function(d, i) {
         
         if(!self.selected) {
-          for(var i = 1; i < 7; i++){
-            d3.select("text#vc-title-" + i).text(""); 
-          }
-          return self.hide_details(d, i, this);
+          
         }
       })
       .on("click", function(d, i) {
@@ -161,11 +147,11 @@
           d3.selectAll(".bubble")
             .attr({ 
               "fill-opacity": 0.2,
-              fill: self.fill_color(d.org.length)
+              "fill": self.colorRange(d.org.length)
             });
           d3.select(this).attr({ 
             "fill-opacity": 0.8,
-            fill: self.fill_color(d.org.length)
+            "fill": self.colorRange(d.org.length)
           });
 
         } else {
@@ -173,14 +159,12 @@
           d3.selectAll(".bubble").each(function(data){
             d3.select(this).attr({ 
               "fill-opacity": 0.8,
-              fill: self.fill_color(d.org.length)
+              "fill": self.colorRange(d.org.length)
             });
           });
           
           self.hide_details(d, i, self.currentSelection);
           return self.show_details(d, i, this);
-          
-          
         }
 
       });
@@ -209,6 +193,27 @@
     
     };
     
+    function showBubbleDetails() {
+      var counter = 0
+      
+      d.org.forEach(function(name){
+        counter = counter + 1;
+        d3.select("text#vc-title-" + counter).text(name);  
+        return true;
+      });
+
+      d3.select(this).attr("fill-opacity", 0.8);
+
+      return self.show_details(d, 1, this);
+      
+    }
+
+    function hideBubbleDetails() {
+      for(var i = 1; i < 7; i++){
+        d3.select("text#vc-title-" + i).text(""); 
+      }
+      return self.hide_details(d, i, this);
+    }
         
     BubbleChart.prototype.charge = function(d) {
       return -Math.pow(d.radius, 2.0) / 7 ;
@@ -288,17 +293,6 @@
       
     };
 
-    /*BubbleChart.prototype.show_details = function(data, i, element) {
-      var content;
-      d3.select(element).attr("stroke", "black");
-      content = "<span class=\"name\"></span><span class=\"value\"> " + data.name + ", "+ data.group +", $" + (addScale(data.value))  + "</span><br/>";
-      //content += "<span class=\"name\">Amount:</span><span class=\"value\"> $" + (addScale(data.value)) +  "</span><br/>";
-      //content += "<span class=\"name\">Last Round:</span><span class=\"value\"> " + data.group + "</span><br/>";
-      //content += "<span class=\"name\">Year:</span><span class=\"value\"> " + data.year + "</span>";
-
-      return this.tooltip.showTooltip(content, d3.event);
-    };*/
-
     BubbleChart.prototype.show_details = function(data, i, element) {
       
       var content1, content2;
@@ -376,7 +370,7 @@
       function generatelablesContainer(vis, data, css, itemId, x, y, clickExecutor) {
         
         var lablesContainer = vis
-                        .selectAll("g."+css)
+                        .selectAll("g." + css)
                         .data(data, function(d) {
 
                             return d.id;
