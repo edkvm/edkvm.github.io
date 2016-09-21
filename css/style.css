@@ -48,14 +48,14 @@ text.vc-lable__text.even {
   fill: #5A7D7C;
 }
 
-text.company-lable.odd {
+text.company-lable__text.odd {
   font-family: 'Open Sans Condensed', sans-serif;
   font-weight: 400;
   font-size: 24px;
   fill: #02020A;
 }
 
-text.company-lable.even {
+text.company-lable__text.even {
   font-family: 'Open Sans Condensed', sans-serif;
   font-weight: 400;
   font-size: 24px;

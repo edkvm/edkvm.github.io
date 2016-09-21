@@ -209,7 +209,7 @@
 
     function hideBubbleDetails(inst, elem, data) {
       // TODO: mark previuosly on hover elem
-      d3.selectAll("text#vc-label__text")
+      d3.selectAll(".vc-label__text")
         .each(function(data){
             d3.select(this).text("");
         });
