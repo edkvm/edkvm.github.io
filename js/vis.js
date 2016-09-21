@@ -123,12 +123,12 @@
       })
       .on("mouseover", function(d, i) {
         if(!self.selected) {
-          showBubbleDetails(this, d)
+          showBubbleDetails(self, this, d)
         }  
       })
       .on("mouseout", function(d, i) {
         if(!self.selected) {
-          hideBubbleDetails(this, d)  
+          hideBubbleDetails(self, this, d)  
         }
       })
       .on("click", function(d, i) {
@@ -192,7 +192,7 @@
     
     };
     
-    function showBubbleDetails(elem, data) {
+    function showBubbleDetails(inst, elem, data) {
       var counter = 0
       
       data.org.forEach(function(name){
@@ -203,18 +203,18 @@
 
       d3.select(elem).attr("fill-opacity", 0.8);
 
-      return self.show_details(data, 1, elem);
+      return inst.show_details(data, 1, elem);
       
     }
 
-    function hideBubbleDetails(elem, data) {
+    function hideBubbleDetails(inst, elem, data) {
       // TODO: mark previuosly on hover elem
       d3.selectAll("text#vc-label__text")
         .each(function(data){
             d3.select(this).text("");
         });
       
-      return self.hide_details(data, 1, elem);
+      return inst.hide_details(data, 1, elem);
     }
         
     BubbleChart.prototype.charge = function(d) {
