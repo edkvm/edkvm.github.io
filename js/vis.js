@@ -208,11 +208,11 @@
     }
 
     function hideBubbleDetails(elem, data) {
-      data.org.forEach(function(name){
-        counter = counter + 1;
-        d3.select("text#vc-title-" + counter).text("");  
-        return true;
-      });
+      // TODO: mark previuosly on hover elem
+      d3.selectAll("text#vc-label__text")
+        .each(function(data){
+            d3.select(this).text("");
+        });
       
       return self.hide_details(data, 1, elem);
     }
@@ -401,7 +401,7 @@
                 
                 d3.select(this).attr({
                     y: currentY,
-                    "class":  css + " " + title_class_pos,
+                    "class":  css + "__text" + " " + title_class_pos,
                     id: itemId + counter
                 }).text("");    
             })

@@ -34,14 +34,14 @@ circle.bubble {
   font-size: 60px;
 }
 
-text.vc-lable.odd {
+text.vc-lable__text.odd {
   font-family: 'Open Sans Condensed', sans-serif;
   font-weight: 400;
   font-size: 24px;
   fill: #02020A;
 }
 
-text.vc-lable.even {
+text.vc-lable__text.even {
   font-family: 'Open Sans Condensed', sans-serif;
   font-weight: 400;
   font-size: 24px;
