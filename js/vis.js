@@ -123,13 +123,12 @@
       })
       .on("mouseover", function(d, i) {
         if(!self.selected) {
-          showBubbleDetails()
+          showBubbleDetails(current, d)
         }  
       })
       .on("mouseout", function(d, i) {
-        
         if(!self.selected) {
-          
+          hideBubbleDetails(current, d)  
         }
       })
       .on("click", function(d, i) {
@@ -193,26 +192,29 @@
     
     };
     
-    function showBubbleDetails() {
+    function showBubbleDetails(elem, data) {
       var counter = 0
       
-      d.org.forEach(function(name){
+      data.org.forEach(function(name){
         counter = counter + 1;
         d3.select("text#vc-title-" + counter).text(name);  
         return true;
       });
 
-      d3.select(this).attr("fill-opacity", 0.8);
+      d3.select(elem).attr("fill-opacity", 0.8);
 
-      return self.show_details(d, 1, this);
+      return self.show_details(data, 1, elem);
       
     }
 
-    function hideBubbleDetails() {
-      for(var i = 1; i < 7; i++){
-        d3.select("text#vc-title-" + i).text(""); 
-      }
-      return self.hide_details(d, i, this);
+    function hideBubbleDetails(elem, data) {
+      data.org.forEach(function(name){
+        counter = counter + 1;
+        d3.select("text#vc-title-" + counter).text("");  
+        return true;
+      });
+      
+      return self.hide_details(data, 1, elem);
     }
         
     BubbleChart.prototype.charge = function(d) {
@@ -308,7 +310,7 @@
     BubbleChart.prototype.hide_details = function(data, i, element) {
       d3.select(element).attr("stroke", (function(_this) {
         return function(d) {
-          return d3.rgb(_this.fill_color(d.org.length)).darker();
+          return d3.rgb(_this.colorRange(d.org.length)).darker();
         };
       })(this));
       return this.tooltip.hideTooltip();
