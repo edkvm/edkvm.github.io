@@ -146,11 +146,9 @@
           d3.selectAll(".bubble")
             .attr({ 
               "fill-opacity": 0.2,
-              "fill": self.colorRange(d.org.length)
             });
           d3.select(this).attr({ 
             "fill-opacity": 0.8,
-            "fill": self.colorRange(d.org.length)
           });
 
         } else {
@@ -158,7 +156,6 @@
           d3.selectAll(".bubble").each(function(data){
             d3.select(this).attr({ 
               "fill-opacity": 0.8,
-              "fill": self.colorRange(d.org.length)
             });
           });
           
