@@ -372,8 +372,7 @@
         var lablesContainer = vis
                         .selectAll("g." + css)
                         .data(data, function(d) {
-
-                            return d.id;
+                          return d.id;
                         })
                         .enter().append("g")
                         .attr("class",css);
@@ -413,7 +412,7 @@
       drawTitle(this.vis, 20, startPointY, "INVESTORS:");
       drawTitle(this.vis, 795, startPointY, "COMPANY:");
       generatelablesContainer(this.vis, data, "vc-lable","vc-title-", 25, startPointY);
-      generatelablesContainer(this.vis, data, "company-lable","company-title-", 800, startPointY);
+      generatelablesContainer(this.vis, [{ id: 1, id:2 }], "company-lable","company-title-", 800, startPointY);
       
     }
     
