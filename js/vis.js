@@ -444,7 +444,7 @@
           range: ["#6CD4FF", "#143642", "#A8201A"]
         }
       };
-      chart = new BubbleChart("#chart", data, config);
+      chart = new BubbleChart("#viz", data, config);
       
       chart.start();
       return chart.display_by_group(active_groups);
