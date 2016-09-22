@@ -5,7 +5,7 @@
     __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
 
   BubbleChart = (function() {
-    function BubbleChart(data, container, width, height) {
+    function BubbleChart(container, data, config) {
       this.hide_details = __bind(this.hide_details, this);
       this.show_details = __bind(this.show_details, this);
       this.move_towards_year = __bind(this.move_towards_year, this);
@@ -13,11 +13,12 @@
       this.start = __bind(this.start, this);
       this.render = __bind(this.render, this);
       this.create_nodes = __bind(this.create_nodes, this);
+      
       var max_amount;
       this.container = container;
       this.data = data;
-      this.width = width;
-      this.height = height;
+      this.width = config.width;
+      this.height = config.height;
       this.tooltip = CustomTooltip("startup_funding_tooltip", 210);
       
       this.center = {
@@ -41,9 +42,9 @@
       this.currentSelection = null;
       
       this.colorRange = d3.scale.linear()
-        .domain([1, 3, 5, 8])
-        .range(["#143642", "#558C8C", "#F7941D", "#A8201A"])
-        //.range(["#BDC9E1","#74A9CF", "#2B8CBE", "#045A8D"]);
+        .domain(config.colorRange.domain)
+        .range(config.colorRange.range)
+        
       
       max_amount = d3.max(this.data, function(d) {
         return parseInt(d.amount);
@@ -387,7 +388,6 @@
         lablesContainer.append("text")
             .attr("x", x)
             .each(function (d){
-              console.log(itemId);
                 counter = counter + 1;
                 title_class_pos = "odd";
                 if( counter % 2  == 0) {
@@ -434,8 +434,17 @@
     
     
 
-    render_vis = function (csv) {
-      chart = new BubbleChart(csv, "#vis", 1040, 600);
+    render_vis = function (data) {
+      config = { 
+        width: 1040,
+        height: 600,
+        colorRange: {
+          domain: [1, 3, 5, 8],
+          //range: ["#143642", "#558C8C", "#F7941D", "#A8201A"]
+          range: ["#6CD4FF", "#143642", "#A8201A"]
+        }
+      };
+      chart = new BubbleChart("#chart", data, config);
       
       chart.start();
       return chart.display_by_group(active_groups);
