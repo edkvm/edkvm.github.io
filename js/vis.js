@@ -438,10 +438,10 @@
         width: 1040,
         height: 600,
         colorRange: {
-          domain: [1, 3, 6, 9],
+          domain: [1, 3, 6, 8, 11],
           //range: ["#143642", "#558C8C", "#F7941D", "#A8201A"]
-          //range: ["#6CD4FF", "#143642", "#BF4E30", "#A8201A"]
-          range: ["#88A8A8", "#163E4C", "#AF6F2a", "#DB2A20"]
+          range: ["#6CD4FF", "#143642", "#BF4E30", "#A8201A", "#DB2A20"]
+          //range: ["#88A8A8", "#163E4C", "#AF6F2a", ]
         }
       };
       chart = new BubbleChart("#viz", data, config);
