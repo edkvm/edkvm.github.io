@@ -811,7 +811,7 @@
     "id": 116,
     "links": {
       "crunchbase": "https://www.crunchbase.com/person/max-levchin"
-    },
+    }
 
   }, {
     "slug": "paul-buchheit",
@@ -867,7 +867,6 @@
     "links": {
       "crunchbase": "https://www.crunchbase.com/person/naval-ravikant"
     },
-    "r"
     "type": "person"
   }, {
     "id": 126,

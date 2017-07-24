@@ -482,7 +482,9 @@
 
       render_vis(data);
       // Render label
-      d3.json("data/labels.json", render_lable);
+      d3.json("data/labels.json", function(data) {
+        render_lable(data);
+      });
 
     });
     
